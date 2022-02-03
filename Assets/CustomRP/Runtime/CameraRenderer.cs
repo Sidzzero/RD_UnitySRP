@@ -42,8 +42,10 @@ public class CameraRenderer
    
     private void Setup()
     {
-        context.SetupCameraProperties(camera);
-        buffer.ClearRenderTarget(true, true, Color.clear);// If we clear and setup then it cleans in better way
+        //Setting up camera and clearing rendering target is faster than direcltyl callong clear render target first
+        //since bad way it creates a quad and uses some shader but this way ti does something else ?(But what is it ?)
+        context.SetupCameraProperties(camera);//Setups the camera settings post.rot for VP matrices for rendering
+        buffer.ClearRenderTarget(true, true, Color.clear);// If we clear and setup then it cleans in better way ()For FRAME BUFFER
       
         buffer.BeginSample(bufferName);
         ExcuteBuffer();
